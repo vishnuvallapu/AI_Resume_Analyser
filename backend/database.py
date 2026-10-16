@@ -9,21 +9,23 @@ load_dotenv(BASE_DIR / ".env")
 
 
 def get_connection():
-    """Create a MySQL connection using values from backend/.env."""
-    host = os.getenv("DB_HOST", "localhost").strip()
-    user = os.getenv("DB_USER", "root").strip()
-    database = os.getenv("DB_NAME", "resume_analyzer").strip()
+    """Create a secure MySQL connection."""
 
-    if not host or not user or not database:
-        raise RuntimeError(
-            "DB_HOST, DB_USER, and DB_NAME must be set in backend/.env"
-        )
+    options = {
+        "host": os.getenv("DB_HOST", "localhost").strip(),
+        "port": int(os.getenv("DB_PORT", "3306")),
+        "user": os.getenv("DB_USER", "root").strip(),
+        "password": os.getenv("DB_PASSWORD", ""),
+        "database": os.getenv("DB_NAME", "resume_analyzer").strip(),
+        "connection_timeout": 10,
+    }
 
+    # Use the CA certificate when configured on Render.
     ssl_ca = os.getenv("DB_SSL_CA", "").strip()
 
-if ssl_ca:
-    options["ssl_ca"] = ssl_ca
-    options["ssl_verify_cert"] = True
-    options["ssl_verify_identity"] = True
+    if ssl_ca:
+        options["ssl_ca"] = ssl_ca
+        options["ssl_verify_cert"] = True
+        options["ssl_verify_identity"] = True
 
-return mysql.connector.connect(**options)
+    return mysql.connector.connect(**options)
