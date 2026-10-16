@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer | Login</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+    <main class="auth-card">
+        <h1>AI Resume Analyzer</h1>
+        <p>Analyze your resume against your target job.</p>
+
+        <div class="tabs">
+            <button id="loginTab" class="active">Login</button>
+            <button id="registerTab">Register</button>
+        </div>
+
+        <form id="authForm">
+            <div id="nameField" hidden>
+                <label for="name">Full name</label>
+                <input id="name" name="name" maxlength="100">
+            </div>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email"
+                   maxlength="255" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password"
+                   minlength="8" required>
+
+            <button id="submitButton" class="primary" type="submit">
+                Login
+            </button>
+        </form>
+
+        <p id="message" role="status"></p>
+    </main>
+
+    <script src="/frontend/auth.js"></script>
+</body>
+</html>

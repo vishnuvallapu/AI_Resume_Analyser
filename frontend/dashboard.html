@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer Dashboard</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <h2>Resume Analyzer</h2>
+        <nav>
+            <a href="/dashboard">Analyze</a>
+            <a href="/history">History</a>
+            <button id="logoutButton">Logout</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Analyze your resume</h1>
+        <p id="welcome">Loading account...</p>
+
+        <form id="analyzeForm" class="panel">
+            <label for="jobTitle">Target job title</label>
+            <input id="jobTitle" name="job_title"
+                   placeholder="Python Developer" maxlength="150">
+
+            <label for="resume">Upload resume (PDF, max 5 MB)</label>
+            <input id="resume" name="resume" type="file"
+                   accept=".pdf,application/pdf" required>
+
+            <label for="jobDescription">Job description</label>
+            <textarea id="jobDescription" name="job_description"
+                      rows="8" maxlength="20000" required
+                      placeholder="Paste the job requirements here..."></textarea>
+
+            <button id="analyzeButton" class="primary" type="submit">
+                Analyze Resume
+            </button>
+        </form>
+
+        <p id="status" role="status"></p>
+
+        <section id="results" class="panel" hidden>
+            <h2>Analysis Results</h2>
+
+            <div class="score-card">
+                <p>Weighted skill-match score</p>
+                <strong id="score">0%</strong>
+                <p id="scoreNote"></p>
+            </div>
+
+            <h3>Matching skills</h3>
+            <ul id="matchedSkills"></ul>
+
+            <h3>Skills not found in the resume</h3>
+            <ul id="missingSkills"></ul>
+
+            <h3>Strengths</h3>
+            <ul id="strengths"></ul>
+
+            <h3>Improvement suggestions</h3>
+            <ul id="suggestions"></ul>
+
+            <h3>Summary</h3>
+            <p id="summary"></p>
+
+            <p id="aiStatus"></p>
+            <a href="/history">View analysis history</a>
+        </section>
+    </main>
+
+    <script src="/frontend/app.js"></script>
+</body>
+</html>
