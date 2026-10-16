@@ -19,11 +19,11 @@ def get_connection():
             "DB_HOST, DB_USER, and DB_NAME must be set in backend/.env"
         )
 
-    return mysql.connector.connect(
-        host=host,
-        port=int(os.getenv("DB_PORT", "3306")),
-        user=user,
-        password=os.getenv("DB_PASSWORD", ""),
-        database=database,
-        connection_timeout=10,
-    )
+    ssl_ca = os.getenv("DB_SSL_CA", "").strip()
+
+if ssl_ca:
+    options["ssl_ca"] = ssl_ca
+    options["ssl_verify_cert"] = True
+    options["ssl_verify_identity"] = True
+
+return mysql.connector.connect(**options)
